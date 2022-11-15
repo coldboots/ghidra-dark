@@ -64,7 +64,7 @@ preferences = {
         "Display.Color for Variables": Color(-3815226),
         "Display.Color for Comments": Color(-10518115),
         "Display.Color for Function names": Color(-10580601),
-        "Display.Font": Font(14, 0, "Monospaced")
+        "Display.Font": Font(14, 0, "Jetbrains Mono")
     },
     "Search": {
         "Highlight Color for Current Match": Color(-11974594),
@@ -107,7 +107,7 @@ preferences = {
         "Labels, Local Color": Color(-7564224),
         "Function Name Color": Color(-10580601),
         "Comment, Repeatable Color": Color(-10518115),
-        "BASE FONT": Font(14, 0, "Monospaced"),
+        "BASE FONT": Font(14, 0, "Jetbrains Mono"),
     },
     "Comments": {
         "Enter accepts comment": State(True)

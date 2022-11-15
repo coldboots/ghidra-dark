@@ -9,6 +9,10 @@ import urllib.request
 from tcd_browser import TCDBrowser
 from preferences import preferences
 
+flatlaf_version = "2.5"
+#flatlaf_theme = "FlatDarkLaf"
+flatlaf_theme = "FlatDarculaLaf"
+
 parser = argparse.ArgumentParser(description="Install Ghidra dark theme")
 parser.add_argument("--path", dest="install_path", type=str, default=None,
                     help="The installation path for Ghidra")
@@ -52,8 +56,8 @@ with open(properties_path, "r") as fp:
 
 print(f"Detected Ghidra v{version}")
 
-flatlaf_path = os.path.join(install_path, "flatlaf-0.43.jar")
-flatlaf_url = "https://bintray.com/jformdesigner/flatlaf/download_file?file_path=com/formdev/flatlaf/0.43/flatlaf-0.43.jar"
+flatlaf_path = os.path.join(install_path, f"flatlaf-{flatlaf_version}.jar")
+flatlaf_url = f"https://repo1.maven.org/maven2/com/formdev/flatlaf/{flatlaf_version}/flatlaf-{flatlaf_version}.jar"
 
 # Download the FlatLaf jar
 if not os.path.exists(flatlaf_path):
@@ -70,9 +74,9 @@ with fileinput.FileInput(launch_sh_path, inplace=True, backup=".bak") as fp:
     for line in fp:
         if line.strip().startswith(cpath) and "flatlaf" not in line:
             if os.name == "nt":
-                print(f"{line.rstrip()}{install_dir}flatlaf-0.43.jar")
+                print(f"{line.rstrip()}{install_dir}flatlaf-{{flatlaf_version}}.jar")
             else:
-                print(f"{line.rstrip()[:-1]}{install_dir}flatlaf-0.43.jar\"")
+                print(f"{line.rstrip()[:-1]}{install_dir}flatlaf-{flatlaf_version}.jar\"")
         else:
             print(line, end="")
 
@@ -87,7 +91,7 @@ with open(launch_properties_path, "r") as fp:
 # Set FlatLaf as the system L&f
 if not flatlaf_set:
     with open(launch_properties_path, "a") as fp:
-        fp.write("\nVMARGS=-Dswing.systemlaf=com.formdev.flatlaf.FlatDarkLaf")
+        fp.write(f"\nVMARGS=-Dswing.systemlaf=com.formdev.flatlaf.{flatlaf_theme}")
 
 # _PUBLIC was appended to the name after 9.0.4
 # The "-" after .ghidra was changed to "_" after 9.0.4
